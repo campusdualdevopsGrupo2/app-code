@@ -52,7 +52,7 @@ jobs:
   deploy_infra:
     runs-on: ubuntu-latest
     needs: deploy  # Espera que el job 'deploy' termine primero
-    #uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/deploy_app_node.yml@main
+    #uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/deploy_app_node.yml
     if: ${{ needs.deploy.outputs.image_exists == '' }}
     #steps:
     #  - name: Bla2
@@ -62,7 +62,7 @@ jobs:
   update_task:
     runs-on: ubuntu-latest
     needs: deploy  # Espera que el job 'deploy' termine primero
-    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/update_node_task.yml@main
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/update_node_task.yml
     steps:
       - name: Bla
         run: |
