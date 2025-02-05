@@ -40,7 +40,7 @@ jobs:
         run: |
             set +e
             IMAGE_EXISTS=$(aws ecr describe-images --repository-name repositorio-grupo-dos --image-ids imageTag=node)
-            echo "IMAGE_EXISTS=$IMAGE_EXISTS" >> $GITHUB_ENV
+            echo "::set-output name=image_exists::$IMAGE_EXISTS"
             set -e
         continue-on-error: true  # No fallar el job si no se encuentra la imagen
 
@@ -49,12 +49,14 @@ jobs:
           docker push 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
   deploy_infra:
     runs-on: ubuntu-latest
-    if: ${{ env.IMAGE_EXISTS == '' }}
+    needs: deploy  # Espera que el job 'deploy' termine primero
+    if: ${{ needs.deploy.outputs.image_exists == '' }}
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/deploy_app_node.yml@main
 
   update_task:
     runs-on: ubuntu-latest
-    if: ${{ env.IMAGE_EXISTS != '' }}
+    needs: deploy  # Espera que el job 'deploy' termine primero
+    if: ${{ needs.deploy.outputs.image_exists != '' }}
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/update_node_task.yml@main
 
         
