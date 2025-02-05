@@ -63,6 +63,9 @@ jobs:
     needs: deploy  # Espera que el job 'deploy' termine primero
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/update_node_task.yml@main
     if: ${{ needs.deploy.outputs.image_exists != ''}}
+    with:
+      repository: https://github.com/campusdualdevopsGrupo2/infra-resources
+      path_to_module: modules/app_node
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto
