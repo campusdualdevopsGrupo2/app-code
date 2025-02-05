@@ -12,6 +12,9 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
+app.get('/super/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'super.html'));
+});
 
 // Export the app for testing purposes
 module.exports = app;
