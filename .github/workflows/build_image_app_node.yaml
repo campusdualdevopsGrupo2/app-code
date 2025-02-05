@@ -35,7 +35,25 @@ jobs:
         run: |
           docker build -t my-app ./my_images/node_app
           docker tag my-app:latest 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
- 
+      - name: Check if image exists in ECR
+        id: check_image
+        run: |
+            set +e
+            IMAGE_EXISTS=$(aws ecr describe-images --repository-name repositorio-grupo-dos --image-ids imageTag=node)
+            echo "IMAGE_EXISTS=$IMAGE_EXISTS" >> $GITHUB_ENV
+            set -e
+        continue-on-error: true  # No fallar el job si no se encuentra la imagen
+
       - name: Push Docker image to ECR
         run: |
           docker push 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
+  infra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy infrastructure if image is new or force update ECS task
+        if: ${{ env.IMAGE_EXISTS == '' }}
+        uses: outofdevops/infra-resources/.github/workflows/deploy_app_node.yml@main
+
+      - name: Force update ECS task definition
+        if: ${{ env.IMAGE_EXISTS != '' }}
+        uses: outofdevops/infra-resources/.github/workflows/update_app_node.yml@main
