@@ -50,11 +50,11 @@ jobs:
   deploy_infra:
     runs-on: ubuntu-latest
     if: ${{ env.IMAGE_EXISTS == '' }}
-    uses: outofdevops/infra-resources/.github/workflows/deploy_app_node.yml@main
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/deploy_app_node.yml@main
 
   update_task:
     runs-on: ubuntu-latest
     if: ${{ env.IMAGE_EXISTS != '' }}
-    uses: outofdevops/infra-resources/.github/workflows/update_app_node.yml@main
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/update_app_node.yml@main
 
         
