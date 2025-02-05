@@ -47,13 +47,14 @@ jobs:
       - name: Push Docker image to ECR
         run: |
           docker push 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
-  infra:
+  deploy_infra:
     runs-on: ubuntu-latest
-    steps:
-      - name: Deploy infrastructure if image is new or force update ECS task
-        if: ${{ env.IMAGE_EXISTS == '' }}
-        uses: outofdevops/infra-resources/.github/workflows/deploy_app_node.yml@main
+    if: ${{ env.IMAGE_EXISTS == '' }}
+    uses: outofdevops/infra-resources/.github/workflows/deploy_app_node.yml@main
 
-      - name: Force update ECS task definition
-        if: ${{ env.IMAGE_EXISTS != '' }}
-        uses: outofdevops/infra-resources/.github/workflows/update_app_node.yml@main
+  update_task:
+    runs-on: ubuntu-latest
+    if: ${{ env.IMAGE_EXISTS != '' }}
+    uses: outofdevops/infra-resources/.github/workflows/update_app_node.yml@main
+
+        
