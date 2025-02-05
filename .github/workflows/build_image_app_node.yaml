@@ -64,7 +64,7 @@ jobs:
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/update_node_task.yml@main
     if: ${{ needs.deploy.outputs.image_exists != ''}}
     with:
-      repository: https://github.com/campusdualdevopsGrupo2/infra-resources
+      repository: campusdualdevopsGrupo2/infra-resources
       path_to_module: modules/app_node
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
