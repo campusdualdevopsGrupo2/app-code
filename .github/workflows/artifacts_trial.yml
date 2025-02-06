@@ -35,7 +35,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.node-version }}  # Nombre del artefacto
-          path: my_images/node_app/__test__ # Ruta del archivo generado
+          path: |
+            my_images/node_app/__test__ 
+            !my_images/node_app/__test__/**.js
 
   print-artifacts:
     runs-on: ubuntu-latest
@@ -50,15 +52,9 @@ jobs:
         with:
           name: test-results-${{ matrix.node-version }}   # Nombre del artefacto, puedes repetir esto para las otras versiones si es necesario
       
-      - name: Show repo
-        run: |
-            ls
-            pwd
-
-
       - name: Mostrar contenido del artefacto (output-${{ matrix.node-version }}.json)
         working-directory: ./my_images/node_app
         run: |
-          cat __test__/output-${{ matrix.node-version }}.json
+          cat output-${{ matrix.node-version }}.json
 
 
