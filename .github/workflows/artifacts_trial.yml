@@ -37,4 +37,23 @@ jobs:
           name: test-results-${{ matrix.node-version }}  # Nombre del artefacto
           path: my_images/node_app/__test__ # Ruta del archivo generado
 
+  print-artifacts:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14,16,18]
+    needs: test  # Asegura que este job se ejecute después del job de tests
+
+    steps:
+      - name: Descargar artefactos
+        uses: actions/download-artifact@v4
+        with:
+          name: test-results-${{ matrix.node-version }}   # Nombre del artefacto, puedes repetir esto para las otras versiones si es necesario
+
+
+      - name: Mostrar contenido del artefacto (output-${{ matrix.node-version }} .json)
+        working-directory: ./my_images/node_app
+        run: |
+          cat __test__/output-${{ matrix.node-version }}.json
+
 
