@@ -24,12 +24,13 @@ jobs:
 
       - name: Ejecutar tests
         working-directory: ./my_images/node_app
-        run: npm test -- --json --outputFile=output.json
+        run: npm test -- --json --outputFile=__test__/output-${{matix.node-version}}.json
         # Aquí, se asume que 'npm test' genera un reporte JSON en 'result.json'.
 
       - name: Subir resultados de tests como artefactos
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.node-version }}  # Nombre del artefacto
-          path: output.json # Ruta del archivo generado
+          path: __test__ # Ruta del archivo generado
+
 
