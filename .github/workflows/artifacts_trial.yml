@@ -24,7 +24,7 @@ jobs:
 
       - name: Ejecutar tests
         working-directory: ./my_images/node_app
-        run: npm test --json --outputFile=output.json
+        run: npm test -- --json --outputFile=output.json
         # Aquí, se asume que 'npm test' genera un reporte JSON en 'result.json'.
 
       - name: Subir resultados de tests como artefactos
