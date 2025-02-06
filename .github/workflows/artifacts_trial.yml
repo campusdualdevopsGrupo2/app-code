@@ -27,10 +27,14 @@ jobs:
         run: npm test -- --json --outputFile=__test__/output-${{matrix.node-version}}.json
         # Aquí, se asume que 'npm test' genera un reporte JSON en 'result.json'.
 
+      #- name: Listar archivos en __test__
+      #  run: ls -la __test__
+      
+
       - name: Subir resultados de tests como artefactos
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.node-version }}  # Nombre del artefacto
-          path: __test__ # Ruta del archivo generado
+          path: my_images/node_app/__test__ # Ruta del archivo generado
 
 
