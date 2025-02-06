@@ -53,7 +53,6 @@ jobs:
           name: test-results-${{ matrix.node-version }}   # Nombre del artefacto, puedes repetir esto para las otras versiones si es necesario
       
       - name: Mostrar contenido del artefacto (output-${{ matrix.node-version }}.json)
-        working-directory: ./my_images/node_app
         run: |
           cat output-${{ matrix.node-version }}.json
 
