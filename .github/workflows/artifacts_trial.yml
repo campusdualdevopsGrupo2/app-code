@@ -31,5 +31,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.node-version }}  # Nombre del artefacto
-          path: ${{ matrix.node-version }}-output.json # Ruta del archivo generado
+          path: output.json # Ruta del archivo generado
 
