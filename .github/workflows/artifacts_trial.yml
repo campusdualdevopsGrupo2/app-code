@@ -1,20 +1,6 @@
 name: CI Workflow
-#on:
-  #workflow_dispatch:
 on:
-  push:
-    branches:
-      - main
-      - develop
-    paths:
-      - 'my_images/node_app/**' 
-  pull_request:
-    branches:
-      - main
-      - develop
-    paths:
-      - 'my_images/node_app/**' 
-  
+  workflow_dispatch:
 
 jobs:
   test:
@@ -38,5 +24,12 @@ jobs:
 
       - name: Ejecutar tests
         working-directory: ./my_images/node_app
-        run: npm test 
+        run: npm test -- --reporter mocha-json-reporter > result.json
+        # Aquí, se asume que 'npm test' genera un reporte JSON en 'result.json'.
+
+      - name: Subir resultados de tests como artefactos
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results-${{ matrix.node-version }}  # Nombre del artefacto
+          path: ./my_images/node_app/result.json  # Ruta del archivo generado
 
