@@ -4,8 +4,8 @@ on:
   push:
     branches:
     - main
-    # paths:
-    #   - '**/*.html'  # solo hace deploy cuandi los archivos HTML son modificados 
+    paths:
+       - 'my_images/node_app/public/**'   # solo hace deploy cuandi los archivos HTML son modificados 
 
 jobs:
   deploy:
