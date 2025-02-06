@@ -28,7 +28,7 @@ jobs:
         # Aquí, se asume que 'npm test' genera un reporte JSON en 'result.json'.
 
       - name: Subir resultados de tests como artefactos
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.node-version }}  # Nombre del artefacto
           path: ./my_images/node_app/result.json  # Ruta del archivo generado
