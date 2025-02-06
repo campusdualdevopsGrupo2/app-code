@@ -49,9 +49,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-results-${{ matrix.node-version }}   # Nombre del artefacto, puedes repetir esto para las otras versiones si es necesario
+      
+      - name: Show repo
+        run: |
+            ls
+            pwd
 
 
-      - name: Mostrar contenido del artefacto (output-${{ matrix.node-version }} .json)
+      - name: Mostrar contenido del artefacto (output-${{ matrix.node-version }}.json)
         working-directory: ./my_images/node_app
         run: |
           cat __test__/output-${{ matrix.node-version }}.json
