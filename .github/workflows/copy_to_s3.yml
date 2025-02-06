@@ -11,9 +11,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Configure AWS credentials with OIDC
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: arn:aws:iam::248189943700:role/GitHubActionsOIDCRole
+        role-to-assume: arn:aws:iam::248189943700:role/GitHubActionsOIDCRole-grupo-dos
         aws-region: eu-west-3  # Cambia la región si es necesario
     - name: Upload to S3
       run: aws s3 cp index.html s3://nombre-de-tu-bucket/index.html
