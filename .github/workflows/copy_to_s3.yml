@@ -1,6 +1,7 @@
 name: Upload to S3 using OIDC
 on:
-  workflow_dispatch:  # Permite iniciar el workflow manualmente
+  workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -10,10 +11,22 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Obtener y mostrar el token OIDC
+      run: |
+        TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r '.value')
+        echo "Token OIDC obtenido:"
+        echo $TOKEN | jq -R 'split(".") | .[1] | @base64d | fromjson'
+      env:
+        ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+        ACTIONS_ID_TOKEN_REQUEST_URL: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
+
     - name: Configure AWS credentials with OIDC
       uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: arn:aws:iam::248189943700:role/GitHubActionsOIDCRole-grupo-dos
-        aws-region: eu-west-3  # Cambia la región si es necesario
+        aws-region: eu-west-3
+
     - name: Upload to S3
       run: aws s3 cp index.html s3://nombre-de-tu-bucket/index.html
+
