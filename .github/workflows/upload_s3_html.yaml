@@ -1,4 +1,4 @@
-name: UPload to S3 Bucket html
+name: Upload to S3 Bucket html
 
 on:
   push:
