@@ -1,0 +1,49 @@
+name: Build_chatbot
+
+on:
+  push:
+    branches:
+      - main        # Define la rama en la que quieres que se ejecute (por ejemplo, "main")
+    paths:
+      - 'modulo3/clase8/node_dia_31/**'  # Reemplaza con la ruta de la carpeta que te interesa
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ecr_url: "248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos"
+
+    steps:
+      - name: Chequear repositorio
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+    
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4 # More information on this action can be found below in the 'AWS Credentials' section
+        with:
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto
+          #aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  # Si es necesario (solo para credenciales temporales)
+
+      - name: Loguearse en Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          mask-password: 'true'
+          registry-type: private
+
+      - name: Construir imagen Docker
+        run: |
+          cd modulo3/clase8/node_dia_31
+          docker build --no-cache -t chat-bot .
+      
+      - name: Etiquetar imagen Docker
+        run: |
+          docker tag chat-bot:latest $ecr_url:chat-bot
+
+      - name: Push de imagen a ECR
+        run: |
+          docker push $ecr_url:chat-bot
