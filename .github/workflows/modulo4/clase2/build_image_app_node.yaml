@@ -19,7 +19,7 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }} # Referencia a la zona
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  # Si es necesario (solo para credenciales temporales)
+          #aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  # Si es necesario (solo para credenciales temporales)
       
       - name: Loguearse en Amazon ECR
         id: login-ecr
@@ -30,7 +30,7 @@ jobs:
  
       - name: Build Docker image
         run: |
-          docker build -t my-app ./my_images/node_app
+          docker build -t my-app ./modulo4/clase1/node_app
           docker tag my-app:latest 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
       - name: Check if image exists in ECR
         id: check_image
@@ -50,11 +50,11 @@ jobs:
 
   deploy_infra:
     needs: deploy  # Espera que el job 'deploy' termine primero
-    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/deploy_app_node.yml@main
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/modulo4/clase2/deploy_app_node.yml@main
     if: ${{ needs.deploy.outputs.image_exists == ''}}
     with:
       repository: campusdualdevopsGrupo2/infra-resources
-      path_to_module: modules/app_node
+      path_to_module: modulo4/clase1/node_app
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto
@@ -64,11 +64,11 @@ jobs:
 
   update_task:
     needs: deploy  # Espera que el job 'deploy' termine primero
-    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/update_node_task.yml@main
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/modulo4/clase2/update_node_task.yml@main
     if: ${{ needs.deploy.outputs.image_exists != ''}}
     with:
       repository: campusdualdevopsGrupo2/infra-resources
-      path_to_module: modules/app_node
+      path_to_module: modulo4/clase1/node_app
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto

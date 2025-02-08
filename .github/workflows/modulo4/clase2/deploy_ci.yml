@@ -7,13 +7,13 @@ on:
       - main
       - develop
     paths:
-      - 'my_images/node_app/**' 
+      - 'modulo4/clase1/node_app/**' 
   pull_request:
     branches:
       - main
       - develop
     paths:
-      - 'my_images/node_app/**' 
+      - 'modulo4/clase1/node_app/**' 
   
 
 jobs:
@@ -33,10 +33,10 @@ jobs:
           node-version:  ${{ matrix.node-version }}
 
       - name: Install dependencies
-        working-directory: ./my_images/node_app
+        working-directory: ./modulo4/clase1/node_app
         run: npm install
 
       - name: Ejecutar tests
-        working-directory: ./my_images/node_app
+        working-directory: ./modulo4/clase1/node_app
         run: npm test 
 
