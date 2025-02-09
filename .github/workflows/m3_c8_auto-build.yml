@@ -49,7 +49,7 @@ jobs:
           docker push $ecr_url:chat-bot
           
   deploy_infra:
-    needs: deploy  # Espera que el job 'deploy' termine primero
+    needs: build  # Espera que el job 'deploy' termine primero
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/modulo3/clase8/deploy_chatapp.yml@main
     with:
       repository: campusdualdevopsGrupo2/infra-resources
