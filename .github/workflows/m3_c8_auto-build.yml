@@ -50,7 +50,7 @@ jobs:
           
   deploy_infra:
     needs: build  # Espera que el job 'deploy' termine primero
-    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/modulo3/clase8/deploy_chatapp.yml@main
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/m3_c8_deploy_chatapp.yml@main
     with:
       repository: campusdualdevopsGrupo2/infra-resources
       path_to_module: modulo3/clase8/chat_app
