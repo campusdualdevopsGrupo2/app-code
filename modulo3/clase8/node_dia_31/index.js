@@ -19,7 +19,6 @@ app.get('/treasure/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));  // Correcta concatenación de la ruta
 });
 
-
 // Iniciar el servidor en todas las interfaces de red
 server.listen(3000, () => {
   console.log('Chat app listening on port 3000');
