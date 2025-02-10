@@ -51,9 +51,6 @@ Se modificaron los nombres y estructuras de carpetas de varios módulos para may
 
 Se agregaron nuevas aplicaciones personalizadas en Nginx, Flask y Node.js.
 
-Se agregaron políticas de retención a un bucket S3 en g2-cdt-m4-c3-bucket-s3-con-politica-de-retencion.
-
-Se agregó un .gitignore para optimizar el repositorio.
 
 ⚙️ Requisitos
 
