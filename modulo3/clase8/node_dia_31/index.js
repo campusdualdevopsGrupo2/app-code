@@ -12,7 +12,6 @@ app.get('/', (req, res) => {
   console.log('He recibido /')
   res.send('Chat app is running!');
 });
-
 // Ruta para el "tesoro" que sirve el archivo index.html
 app.get('/treasure/', (req, res) => {
   console.log('He recibido treasure')
