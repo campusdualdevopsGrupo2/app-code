@@ -7,33 +7,31 @@ Este repositorio contiene los recursos de infraestructura para la gestión y des
 
 .github/workflows/ → Contiene los workflows de GitHub Actions para la automatización del CI/CD.
 
-g2-cdt-m2-c4-ansible-wordpress/ → Configuración de Ansible para desplegar WordPress en EC2.
+- **g2-cdt-m3-c5-custom_nginx_page**: Este directorio contiene la configuración y el código necesario para implementar una página personalizada utilizando Nginx. Asegúrate de revisar los archivos de configuración para adaptarlos a tus necesidades.
 
-g2-cdt-m2-c8-terragrunt-terragrunt-wordpress/ → Configuración de Terragrunt para el despliegue de WordPress.
+- **g2-cdt-m3-c5-flask_personal**: Aquí encontrarás una aplicación Flask que puedes personalizar y utilizar como base para tus proyectos. Incluye ejemplos de rutas y manejo de formularios.
 
-g2-cdt-m3-c2-kubernetes-kubernetes/ → Configuración de Kubernetes.
+- **g2-cdt-m3-c8-node_dia_31**: Este proyecto es un ejemplo de una aplicación Node.js desarrollada durante el día 31 del curso. Contiene ejemplos de uso de middleware y rutas.
 
-g2-cdt-m3-c3-eks-modulo-wordpress-eks/modulo_eks/ → Configuración de EKS con WordPress.
+- **g2-cdt-m4-c1-node_app**: Este directorio incluye una aplicación Node.js desarrollada en el módulo 4, clase 1. Asegúrate de revisar la documentación para entender su estructura y funcionamiento.
 
-g2-cdt-m3-c4-ecr-y-eks-modulo-ecr-y-eks/ → Configuración combinada de ECR y EKS.
+## Contribuciones
 
-g2-cdt-m3-c5-ecs-aws-ecs/ecs_resources/ → Configuración de Amazon ECS.
+Si deseas contribuir a este proyecto, por favor sigue estos pasos:
 
-g2-cdt-m3-c6-ecs-conf-ecs/ecs_resources/ → Configuración adicional para ECS.
+1. Haz un fork del repositorio.
+2. Crea una nueva rama (`git checkout -b feature/nueva-caracteristica`).
+3. Realiza tus cambios y haz commit (`git commit -m 'Añadir nueva característica'`).
+4. Haz push a la rama (`git push origin feature/nueva-caracteristica`).
+5. Abre un Pull Request.
 
-g2-cdt-m3-c5-custom_nginx_page/ → Página personalizada en Nginx.
+## Licencia
 
-g2-cdt-m3-c5-flask_personal/ → Aplicación Flask personalizada.
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
 
-g2-cdt-m3-c8-node_dia_31/ → Aplicación Node.js.
+## Contacto
 
-g2-cdt-m4-c1-node_app/ → Aplicación Node.js en módulo 4.
-
-g2-cdt-m3-c8-project-chat-app/chat_app/ → Aplicación de chat en tiempo real.
-
-g2-cdt-m4-c3-bucket-s3-con-politica-de-retencion/bucket-s3-con-politica-de-retencion/ → Configuración de un bucket S3 con una política de retención.
-
-g2-cdt-prod-fixed-resources/ → Recursos fijos de producción.
+Para más información, puedes contactar a Javier Guerra en [tu-email@ejemplo.com].
 
 .gitignore → Archivo de configuración para ignorar archivos innecesarios en Git.
 
@@ -70,15 +68,8 @@ Git
 
 Clona el repositorio:
 
-git clone https://github.com/campusdualdevopsGrupo2/infra-resources.git
+git clone https://github.com/campusdualdevopsGrupo2/app-code.git
 
-Accede al directorio del módulo que deseas utilizar:
-
-cd g2-cdt-m3-c3-eks-modulo-wordpress-eks
-
-Aplica la configuración con Terraform o Terragrunt:
-
-terragrunt run-all apply
 
 🛠 Contribución
 
