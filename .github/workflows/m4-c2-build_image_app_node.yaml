@@ -49,7 +49,7 @@ jobs:
 
   deploy_infra:
     needs: deploy # Espera que el job 'deploy' termine primero
-    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/m4-c2-deploy_ci.yml@main
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/m4-c2-deploy_app_node.yml@main
     if: ${{ needs.deploy.outputs.image_exists == ''}}
     with:
       repository: campusdualdevopsGrupo2/infra-resources
