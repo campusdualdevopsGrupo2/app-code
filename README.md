@@ -1,4 +1,4 @@
-# App-Code Borrador 
+# App-Code
 
 
 Este repositorio contiene los recursos de infraestructura para la gestión y despliegue de diversas aplicaciones y servicios en la nube.
