@@ -2,81 +2,73 @@ name: Build and Push Docker Image
 on:
   #workflow_dispatch:
   workflow_run:
-    workflows: ["CI Workflow"]  # Nombre del workflow anterior
+    workflows: [ "CI Workflow" ] # Nombre del workflow anterior
     types:
-      - completed  # Este evento se dispara cuando el workflow se completa
+    - completed # Este evento se dispara cuando el workflow se completa
 jobs:
   deploy:
     runs-on: ubuntu-latest
     if: ${{github.event.workflow_run.conclusion == 'success'}}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-   
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }} # Referencia a la zona
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto
-          #aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  # Si es necesario (solo para credenciales temporales)
-      
-      - name: Loguearse en Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-        with:
-          mask-password: 'true'
-          registry-type: private
- 
-      - name: Build Docker image
-        run: |
-          docker build -t my-app ./modulo4/clase1/node_app
-          docker tag my-app:latest 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
-      - name: Check if image exists in ECR
-        id: check_image
-        run: |
-            set +e
-            IMAGE_EXISTS=$(aws ecr describe-images --repository-name repositorio-grupo-dos --image-ids imageTag=node)
-            echo "::set-output name=image_exists::$IMAGE_EXISTS"
-            set -e
-        continue-on-error: true  # No fallar el job si no se encuentra la imagen
+    - name: Check out repository
+      uses: actions/checkout@v3
 
-      - name: Push Docker image to ECR
-        run: |
-          docker push 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ secrets.AWS_DEFAULT_REGION }} # Referencia a la zona
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} # Referencia al secreto
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Referencia al secreto
+        #aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  # Si es necesario (solo para credenciales temporales)
+
+    - name: Loguearse en Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+      with:
+        mask-password: 'true'
+        registry-type: private
+
+    - name: Build Docker image
+      run: |
+        docker build -t my-app .g2-cdt-m4-c1-node_app
+        docker tag my-app:latest 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
+    - name: Check if image exists in ECR
+      id: check_image
+      run: |
+        set +e
+        IMAGE_EXISTS=$(aws ecr describe-images --repository-name repositorio-grupo-dos --image-ids imageTag=node)
+        echo "::set-output name=image_exists::$IMAGE_EXISTS"
+        set -e
+      continue-on-error: true # No fallar el job si no se encuentra la imagen
+
+    - name: Push Docker image to ECR
+      run: |
+        docker push 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
     outputs:
       image_exists: ${{ steps.check_image.outputs.IMAGE_EXISTS }}
 
-
   deploy_infra:
-    needs: deploy  # Espera que el job 'deploy' termine primero
-    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/modulo4/clase2/deploy_app_node.yml@main
+    needs: deploy # Espera que el job 'deploy' termine primero
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/m4-c2-deploy_ci.yml@main
     if: ${{ needs.deploy.outputs.image_exists == ''}}
     with:
       repository: campusdualdevopsGrupo2/infra-resources
       path_to_module: modulo4/clase1/node_app
     secrets:
-      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
-      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto
-      aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }} 
+      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }} # Referencia al secreto
+      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Referencia al secreto
+      aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
       aws_default_region: ${{ secrets.AWS_DEFAULT_REGION }}
-    
 
   update_task:
-    needs: deploy  # Espera que el job 'deploy' termine primero
+    needs: deploy # Espera que el job 'deploy' termine primero
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/modulo4/clase2/update_node_task.yml@main
     if: ${{ needs.deploy.outputs.image_exists != ''}}
     with:
       repository: campusdualdevopsGrupo2/infra-resources
       path_to_module: modulo4/clase1/node_app
     secrets:
-      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
-      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto
-      aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }} 
+      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }} # Referencia al secreto
+      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Referencia al secreto
+      aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
       aws_default_region: ${{ secrets.AWS_DEFAULT_REGION }}
-
-
-
-        
-
-        
