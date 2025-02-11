@@ -62,7 +62,7 @@ jobs:
 
   update_task:
     needs: deploy # Espera que el job 'deploy' termine primero
-    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/modulo4/clase2/update_node_task.yml@main
+    uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/m4-c2-update_node_task.yml@main
     if: ${{ needs.deploy.outputs.image_exists != ''}}
     with:
       repository: campusdualdevopsGrupo2/infra-resources
