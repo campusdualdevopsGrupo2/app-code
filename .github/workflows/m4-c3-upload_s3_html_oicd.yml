@@ -31,5 +31,5 @@ jobs:
     #  run: aws s3 cp index.html s3://nombre-de-tu-bucket/index.html
 
     - name: Copy to s3
-      run: aws s3 sync ./modulo4/clase1/node_app/public s3://practica-s3-con-politica-de-retencion --delete 
+      run: aws s3 sync ./g2-cdt-m4-c1-node_app/public s3://practica-s3-con-politica-de-retencion --delete 
 

@@ -5,7 +5,7 @@ on:
     branches:
     - main
     paths:
-       - 'modulo4/clase1/node_app/**'    # solo hace deploy cuandi los archivos HTML son modificados 
+       - 'g2-cdt-m4-c1-node_app/public/**'    # solo hace deploy cuandi los archivos HTML son modificados 
 
 jobs:
   deploy:
@@ -28,4 +28,4 @@ jobs:
     # Step 4: Sync HTML files to the S3 bucket
     - name: Sync HTML files to S3
       run: |
-        aws s3 sync ./modulo4/clase1/node_app/public s3://practica-s3-con-politica-de-retencion --delete  
+        aws s3 sync ./g2-cdt-m4-c1-node_app/public s3://practica-s3-con-politica-de-retencion --delete  
