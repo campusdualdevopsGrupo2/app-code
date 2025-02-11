@@ -49,11 +49,11 @@ jobs:
           docker push $ecr_url:chat-bot
           
   deploy_infra:
-    needs: build  # Espera que el job 'deploy' termine primero
+    needs: build  # Espera que el job 'deploy' termine primero #
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/m3_c8_deploy_chatapp.yml@main
     with:
       repository: campusdualdevopsGrupo2/infra-resources
-      path_to_module: modulo3/clase8/chat_app
+      path_to_module: modulo3/clase8/chat_app1
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}   # Referencia al secreto
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   # Referencia al secreto
