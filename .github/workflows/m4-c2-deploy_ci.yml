@@ -1,42 +1,42 @@
 name: CI Workflow
 #on:
-  #workflow_dispatch:
+#workflow_dispatch:
 on:
   push:
     branches:
-      - main
-      - develop
+    - main
+    - develop
     paths:
-      - 'modulo4/clase1/node_app/**' 
+    # - 'modulo4/clase1/node_app/**'
+    - 'g2-cdt-m4-c1-node_app/**'
   pull_request:
     branches:
-      - main
-      - develop
+    - main
+    - develop
     paths:
-      - 'modulo4/clase1/node_app/**' 
-  
+    # - 'modulo4/clase1/node_app/**'
+    - 'g2-cdt-m4-c1-node_app/**'
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14,16,18]
+        node-version: [ 14, 16, 18 ]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js  ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version:  ${{ matrix.node-version }}
+    - name: Set up Node.js  ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        working-directory: ./modulo4/clase1/node_app
-        run: npm install
+    - name: Install dependencies
+      working-directory: ./g2-cdt-m4-c1-node_app
+      run: npm install
 
-      - name: Ejecutar tests
-        working-directory: ./modulo4/clase1/node_app
-        run: npm test 
-
+    - name: Ejecutar tests
+      working-directory: ./g2-cdt-m4-c1-node_app
+      run: npm test
