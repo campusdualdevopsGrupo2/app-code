@@ -52,8 +52,8 @@ jobs:
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/m4-c2-deploy_app_node.yml@main
     if: ${{ needs.deploy.outputs.image_exists == ''}}
     with:
-      repository: campusdualdevopsGrupo2/infra-resources
-      path_to_module: modulo4/clase1/node_app
+      repository: campusdualdevopsGrupo2/app-code #campusdualdevopsGrupo2/infra-resources
+      path_to_module: g2-cdt-m4-c1-node_app #modulo4/clase1/node_app
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }} # Referencia al secreto
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Referencia al secreto
@@ -65,8 +65,8 @@ jobs:
     uses: campusdualdevopsGrupo2/infra-resources/.github/workflows/m4-c2-update_node_task.yml@main
     if: ${{ needs.deploy.outputs.image_exists != ''}}
     with:
-      repository: campusdualdevopsGrupo2/infra-resources
-      path_to_module: modulo4/clase1/node_app
+      repository: campusdualdevopsGrupo2/app-code #campusdualdevopsGrupo2/infra-resources
+      path_to_module: g2-cdt-m4-c1-node_app #modulo4/clase1/node_app
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }} # Referencia al secreto
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Referencia al secreto
