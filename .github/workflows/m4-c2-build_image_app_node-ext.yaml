@@ -30,7 +30,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t my-app .g2-cdt-m4-c1-node_app
+        docker build -t my-app g2-cdt-m4-c1-node_app
         docker tag my-app:latest 248189943700.dkr.ecr.eu-west-2.amazonaws.com/repositorio-grupo-dos:node
     - name: Check if image exists in ECR
       id: check_image
