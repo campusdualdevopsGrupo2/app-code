@@ -5,7 +5,7 @@ on:
     branches:
     - main
     paths:
-       - 'g2-cdt-m4-c1-node_app/public/**'    # solo hace deploy cuandi los archivos HTML son modificados 
+       - 'g2-cdt-m4-c1-node_app/public/**'    # solo hace deploy cuando los archivos HTML son modificados 
 
 jobs:
   deploy:
