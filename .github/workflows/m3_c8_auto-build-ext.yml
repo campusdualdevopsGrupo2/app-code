@@ -5,8 +5,8 @@ on:
     branches:
       - main        # Define la rama en la que quieres que se ejecute (por ejemplo, "main")
     paths:
-      - 'g2-cdt-m3-c8-node_dia_31/**'  # Reemplaza con la ruta de la carpeta que te interesa
-
+      - 'g2-cdt-m3-c8-node_dia_31/**'  # Reemplaza con la ruta de la carpeta que te interesa #
+#
 jobs:
   build:
     runs-on: ubuntu-latest
