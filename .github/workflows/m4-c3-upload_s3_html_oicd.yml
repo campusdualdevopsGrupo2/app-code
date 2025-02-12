@@ -27,7 +27,7 @@ jobs:
         role-to-assume: arn:aws:iam::248189943700:role/GitHubActionsOIDCRole-grupo-dos
         aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-    #- name: Upload to S3
+    #- name: Upload to S3 #
     #  run: aws s3 cp index.html s3://nombre-de-tu-bucket/index.html
 
     - name: Copy to s3
