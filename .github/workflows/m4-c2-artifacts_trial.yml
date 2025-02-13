@@ -1,6 +1,9 @@
 name: Artifacts test
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  #workflow_dispatch:
 
 
 jobs:
@@ -28,7 +31,9 @@ jobs:
       run: npm test -- --json --outputFile=__test__/output-${{matrix.node-version}}.json
       # Aquí, se asume que 'npm test' genera un reporte JSON en 'result.json'.
 
-      #- name: Listar archivos en __test__
+    - name: Listar archivos en __test__
+      working-directory: ./g2-cdt-m4-c1-node_app
+      run: ls -la g2-cdt-m4-c1-node_app/__test__
       #  run: ls -la __test__
 
 
@@ -36,9 +41,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-results-${{ matrix.node-version }} # Nombre del artefacto
-        path: |
-          g2-cdt-m4-c1-node_app/node_app/__test__ 
-          !g2-cdt-m4-c1-node_app/node_app/__test__/**.js
+        path: |     # g2-cdt-m4-c1-node_app/node_app/__test__   # !g2-cdt-m4-c1-node_app/node_app/__test__/**.js
+          g2-cdt-m4-c1-node_app/node_app/__test__/output-${{ matrix.node-version }}.json
+
+
 
   print-artifacts:
     runs-on: ubuntu-latest
