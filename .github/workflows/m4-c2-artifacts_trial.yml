@@ -45,7 +45,7 @@ jobs:
     strategy:
       matrix:
         node-version: [ 14, 16, 18 ]
-    needs: test # Asegura que este job se ejecute después del job de tests
+    needs: test # Asegura que este job se ejecute después del job de tests #
 
     steps:
     - name: Descargar artefactos
