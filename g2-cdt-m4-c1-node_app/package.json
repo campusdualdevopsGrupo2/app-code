@@ -5,7 +5,7 @@
     "main": "src/app.js",
     "scripts": {
         "start": "node src/app.js",
-        "test": "jest"
+        "test": "jest --json --outputFile=__test__/output.json" 
     },
     "dependencies": {
         "express": "^4.17.1"
