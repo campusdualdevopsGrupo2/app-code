@@ -31,10 +31,14 @@ jobs:
       run: npm test -- --json --outputFile=__test__/output-${{matrix.node-version}}.json
       # Aquí, se asume que 'npm test' genera un reporte JSON en 'result.json'.
 
+    - name: Listar archivos en el directorio principal
+      working-directory: ./g2-cdt-m4-c1-node_app
+      run: ls -la
+
     - name: Listar archivos en __test__
       working-directory: ./g2-cdt-m4-c1-node_app
-      run: ls -la g2-cdt-m4-c1-node_app/__test__
-      #  run: ls -la __test__
+      #run: ls -la g2-cdt-m4-c1-node_app/__test__
+      run: ls -la __test__
 
 
     - name: Subir resultados de tests como artefactos
@@ -61,4 +65,4 @@ jobs:
 
     - name: Mostrar contenido del artefacto (output-${{ matrix.node-version }}.json)
       run: |
-        cat output-${{ matrix.node-version }}.json
+        cat output-${{ matrix.node-version }}.json 
