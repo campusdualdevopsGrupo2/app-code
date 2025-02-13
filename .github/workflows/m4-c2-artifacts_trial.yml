@@ -28,8 +28,18 @@ jobs:
 
     - name: Ejecutar tests
       working-directory: ./g2-cdt-m4-c1-node_app
-      run: npm test -- --json --outputFile=__test__/output-${{matrix.node-version}}.json
+      run: npm test -- --json --outputFile=__test__/output-${{matrix.node-version}}.json || { echo "npm test failed"; exit 1; }
       # Aquí, se asume que 'npm test' genera un reporte JSON en 'result.json'.
+
+    - name: Verificar archivo de salida
+      working-directory: ./g2-cdt-m4-c1-node_app
+      run: |
+        if [ -f "__test__/output-${{ matrix.node-version }}.json" ]; then
+          echo "El archivo de salida existe."
+        else
+          echo "El archivo de salida no existe."
+          exit 1
+        fi 
 
     - name: Listar archivos en el directorio principal
       working-directory: ./g2-cdt-m4-c1-node_app
@@ -65,4 +75,9 @@ jobs:
 
     - name: Mostrar contenido del artefacto (output-${{ matrix.node-version }}.json)
       run: |
-        cat output-${{ matrix.node-version }}.json 
+        if [ -f "__test__/output-${{ matrix.node-version }}.json" ]; then
+          cat g2-cdt-m4-c1-node_app/__test__/output-${{ matrix.node-version }}.json
+        else
+          echo "El archivo de salida no se encontró."
+          exit 1
+        fi  
